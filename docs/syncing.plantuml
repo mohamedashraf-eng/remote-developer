@@ -1,0 +1,37 @@
+@startuml
+' Styling
+skinparam activity {
+  BackgroundColor White
+  BorderColor Black
+  FontName Arial
+  FontSize 12
+}
+
+skinparam condition {
+  BackgroundColor White
+  BorderColor Black
+  FontName Arial
+  FontSize 12
+}
+
+skinparam note {
+  BackgroundColor LightYellow
+  BorderColor Black
+  FontName Arial
+  FontSize 11
+}
+
+' Start
+start
+
+:Start File Synchronization (rsync);
+note right: Continuous background process
+if () then ([Sync Interrupted])
+  :Log Info: File Sync Interrupted;
+else ([Sync Error])
+  :Log Warning: File Sync Error;
+endif
+
+stop
+
+@enduml

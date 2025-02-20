@@ -1,0 +1,35 @@
+@startuml
+' Styling
+skinparam activity {
+  BackgroundColor White
+  BorderColor Black
+  FontName Arial
+  FontSize 12
+}
+
+skinparam condition {
+  BackgroundColor White
+  BorderColor Black
+  FontName Arial
+  FontSize 12
+}
+
+skinparam note {
+  BackgroundColor LightYellow
+  BorderColor Black
+  FontName Arial
+  FontSize 11
+}
+
+' Start
+start
+
+:Run Command in Devcontainer;
+if () then ([Command Execution Failed])
+  :Log Error: Command Execution Failed;
+else ([Command Executed])
+endif
+
+stop
+
+@enduml
