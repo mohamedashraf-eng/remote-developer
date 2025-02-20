@@ -1,0 +1,62 @@
+name: Pre-Commit Check
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  uv-pre-commit:
+    name: Pre-Commit Check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Cache Dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ${{ runner.temp }}/setup-uv-cache
+          .venv
+        key: ${{ runner.os }}-uv-cache-${{ hashFiles('**/pyproject.toml') }}
+        restore-keys: |
+          ${{ runner.os }}-uv-cache-
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+      with:
+        version: "0.5.16"
+        cache-dir: ${{ runner.temp }}/setup-uv-cache
+
+    - name: Install Development Dependencies
+      shell: bash
+      run: uv sync --only-dev
+
+    - name: Run Pre-Commit
+      id: precommit
+      shell: bash
+      run: uvx pre-commit run --all-files
+      continue-on-error: true
+
+    - name: Comment on PR if Pre-Commit Fails
+      if: steps.precommit.outcome == 'failure'
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        header: Pre-Commit Check
+        message: |
+          🚨 **Pre-Commit Check Failed**
+          Please run the following command locally to fix the issues:
+          ```bash
+          uv run pre-commit run --all-files
+          ```
+
+    - name: PR Fails
+      if: steps.precommit.outcome == 'failure'
+      shell: bash
+      run: exit 1

@@ -1,0 +1,52 @@
+# .pre-commit-config.yaml
+repos:
+  # Ruff pre-commit hooks for linting and formatting Python code
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.0  # Use the specified version of Ruff
+    hooks:
+      # Run Ruff to lint Python code and automatically fix issues
+      - id: ruff
+        args: ['--fix', '.']
+        # '--fix': Automatically applies fixes to issues detected by Ruff
+      # Format Python files using Ruff's formatting rules
+      - id: ruff-format
+
+  # Pre-commit hooks from the official pre-commit-hooks repository
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0  # Use the specified version of pre-commit-hooks
+    hooks:
+      # Remove trailing whitespace from all files
+      - id: trailing-whitespace
+
+      # Add a newline to the end of files if missing
+      - id: end-of-file-fixer
+
+      # Check that toml files are valid and well-formed
+      - id: check-toml
+
+      # Check that YAML files are valid and well-formed
+      - id: check-yaml
+
+      # Check JSON files for proper formatting
+      - id: check-json
+
+      # Automatically format JSON files for readability
+      - id: pretty-format-json
+        args: ['--autofix', '--indent', '2', '--no-ensure-ascii', '--no-sort-keys']
+
+
+      # Prevent committing large files (default threshold: 5MB)
+      - id: check-added-large-files
+
+      # Prevent committing directly to a protected branch (e.g., 'main')
+      - id: no-commit-to-branch
+        args: ["--branch", "main", "--branch", "^(?!((feature|bugfix|hotfix|release)/[a-z0-9._-]+)$).*"]  # Specify the protected branch name
+
+  # Conventional Commit message enforcement
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v4.0.0  # Use the latest stable version
+    hooks:
+      - id: conventional-pre-commit
+        args: ['--strict']
+        # 'stages': Ensures the hook runs during the commit message stage
+        # 'args': '--strict' enforces strict adherence to the Conventional Commits specification

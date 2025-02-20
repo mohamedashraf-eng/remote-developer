@@ -1,0 +1,36 @@
+name: Release Please
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      remote-developer--tag_name: ${{ steps.release.outputs.remote-developer--tag_name }}
+      remote-developer--release_created: ${{ steps.release.outputs.remote-developer--release_created }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  release-remote-developer:
+    if: ${{ needs.release-please.outputs.remote-developer--release_created == 'true' }}
+    runs-on: ubuntu-latest
+    needs: release-please
+    steps:
+      - uses: actions/checkout@v4
+      - run: zip -r remote-developer-build.zip remote-developer/build
+      - name: Upload Release Artifact
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{ needs.release-please.outputs.remote-developer--tag_name }} remote-developer-build.zip
