@@ -188,3 +188,15 @@ class Logger:
             **kwargs: Additional keyword arguments to pass to the logging function.
         """
         self.log(LogLevel.CRITICAL, message, *args, **kwargs)
+
+
+def get_level_from_env():
+    """Retrieves the log level from environment variables."""
+    import os
+
+    level_name = os.getenv("LOG_LEVEL", "INFO").upper()
+    if level_name not in LogLevel.__members__:
+        raise ValueError(
+            f"Invalid log level: {level_name}. Valid levels are: {', '.join(LogLevel.__members__.keys())}"
+        )
+    return LogLevel[level_name]
