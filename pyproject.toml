@@ -1,0 +1,69 @@
+[project]
+name = "agenticai"
+version = "0.1.0"
+description = "A multi-agent AI framework for developing and testing intelligent agents"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+]
+
+[tool.uv]
+dev-dependencies = [
+    "mkdocs>=1.6.1",
+    "mkdocs-material[imaging]>=9.5.49",
+    "ruff>=0.9.0",
+    "pre-commit>=4.0.1",
+]
+
+[tool.ruff]
+line-length = 100
+indent-width = 4
+target-version = "py311"
+exclude = [
+    "tests/*",
+    "build/*",
+    "playground/*",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
+
+[tool.ruff.lint]
+extend-select = [
+    "E",  # Error codes
+    "F",  # Unused imports, undefined variables
+    "B",  # Bugbear rules for design and bug detection
+    "Q",  # String quotes consistency
+    "S",  # Security checks
+    "UP", # pyupgrade
+    "D"   # pydocstyle
+]
+fixable = [
+    "D100",  # Missing docstring in public module
+    "D101",  # Missing docstring in public class
+    "D102",  # Missing docstring in public method
+    "D103",  # Missing docstring in public function
+    "D104",  # Missing docstring in public package
+    "D200",  # One-line docstring should fit on one line
+    "D202",  # No blank lines allowed after function docstring
+    "D410",  # Missing blank line after section ("Args")
+    "D411",  # Missing blank line before section ("Returns")
+    "D415",  # First line should end with a period, question mark, or exclamation point
+    "F401",  # Unused imports
+    "F541",  # f-string without any placeholders
+    "UP006", # Use built-in `dict` and `list` instead of `Dict` and `List`
+    "UP007", # Use `X | Y` for type annotations
+    "UP015", # Remove unnecessary file open mode
+]
+ignore = [
+    "D212",  # Multi-line docstring issues
+    "E501",  # Line too long
+    "D205",  # Blank line required between summary line and description
+    "S101",  # Use of `assert` detected,
+    "E402",  # Module level import not at top of file
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"

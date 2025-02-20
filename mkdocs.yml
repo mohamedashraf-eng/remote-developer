@@ -1,0 +1,27 @@
+site_name: Remote Developer
+site_author: MoWx
+repo_url: https://github.com/mohamedashraf-eng/remote-developer
+site_description: Framework for orchestrating collaborative AI agents.
+edit_uri: https://github.com/mohamedashraf-eng/remote-developer/edit/main/docs/
+
+theme:
+  name: material
+  language: en
+  palette:
+    - scheme: default
+      primary: deep orange
+      accent: deep orange
+    - scheme: slate
+      primary: deep orange
+      accent: deep orange
+
+nav:
+  - Home: index.md
+
+plugins:
+  - search
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/mohamedashraf-eng/remote-developer
