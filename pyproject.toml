@@ -1,7 +1,7 @@
 [project]
-name = "agenticai"
+name = "remote-developer"
 version = "0.1.0"
-description = "A multi-agent AI framework for developing and testing intelligent agents"
+description = "Remote Developer Software"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
