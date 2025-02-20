@@ -193,7 +193,9 @@ class Logger:
 def get_level_from_env():
     """Retrieves the log level from environment variables."""
     import os
+    import dotenv
 
+    dotenv.load_dotenv()
     level_name = os.getenv("LOG_LEVEL", "INFO").upper()
     if level_name not in LogLevel.__members__:
         raise ValueError(
