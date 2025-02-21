@@ -1,0 +1,14 @@
+{
+  "remote_host": "wx@192.168.1.12",
+  "docker_image": "ubuntu:22.04",
+  "remote_dir": "/home/wx/test_remote_developer_project",
+  "port_mappings": [
+    "1332:1332",
+    "2910:2910"
+  ],
+  "devcontainer_template": "./templates/devcontainer-template.txt",
+  "dockerfile_template": "./templates/dockerfile-template.txt",
+  "docker_compose_template": "./templates/docker-compose-template.txt",
+  "dockerignore_template": "./templates/dockerignore-template.txt",
+  "local_dir": "G:\\WX_CAREER\\COTS\\RemoteDeveloper\\remote_developer"
+}
