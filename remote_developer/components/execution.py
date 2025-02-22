@@ -32,13 +32,13 @@ async def run_command_in_devcontainer(config, ssh_client, command_parts):
     docker_exec_command = f'docker exec -t $(docker ps -q --filter "name={container_id}" | head -n 1) bash -c "cd {workspace_dir} && {command}"'
 
     try:
-        logger.info(f"Executing command in devcontainer: {command}")
+        logger.debug(f"Executing command in devcontainer: {command}")
         output, error = await execute_remote_command(ssh_client, docker_exec_command)
 
         if error:
             logger.error(f"Error executing command in devcontainer: {error}")
         else:
-            logger.info("Command executed successfully in devcontainer.")
+            logger.debug("Command executed successfully in devcontainer.")
             print(f"Command output:\n {output.strip()}")
 
     except Exception as e:
