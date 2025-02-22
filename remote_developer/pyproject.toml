@@ -16,6 +16,7 @@ dependencies = [
     "paramiko>=3.5.1",
     "python-dotenv>=1.0.1",
     "pyyaml>=6.0.2",
+    "watchdog>=6.0.0",
 ]
 
 [project.urls]
