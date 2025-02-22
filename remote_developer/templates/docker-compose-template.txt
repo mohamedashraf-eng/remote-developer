@@ -1,0 +1,11 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - {_workspace_dir}:{_workspace_dir}
+    working_dir: {_workspace_dir}
+    ports:
+      {_port_mappings}
+    tty: true

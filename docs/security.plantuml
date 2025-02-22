@@ -1,0 +1,54 @@
+@startuml
+' Styling
+skinparam activity {
+  BackgroundColor White
+  BorderColor Black
+  FontName Arial
+  FontSize 12
+}
+
+skinparam condition {
+  BackgroundColor White
+  BorderColor Black
+  FontName Arial
+  FontSize 12
+}
+
+skinparam note {
+  BackgroundColor LightYellow
+  BorderColor Black
+  FontName Arial
+  FontSize 11
+}
+
+' Start
+start
+
+:Check for Existing SSH Keys;
+if () then ([Keys Exist and Paired])
+  :Return Private Key Path;
+else ([No Keys or Not Paired])
+  :Generate SSH Key Pair;
+  if () then ([Key Generation Failed])
+    :Log Error: SSH Key Generation Failed;
+    stop
+  else ([Key Generation Success])
+    :Automate Copy Public Key to Remote;
+    if () then ([Copy Failed])
+      :Log Error: Public Key Copy Failed;
+      stop
+    else ([Copy Success])
+      :Update Config File (private key path, ssh_paired=True);
+      if () then ([Update Failed])
+        :Log Error: Config File Update Failed;
+        stop
+      else ([Update Success])
+        :Return Private Key Path;
+      endif
+    endif
+  endif
+endif
+
+stop
+
+@enduml

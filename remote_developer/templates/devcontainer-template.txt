@@ -1,0 +1,21 @@
+name: "project-{_project_id}"
+build:
+  dockerfile: "../docker/Dockerfile"
+  args:
+    DEBIAN_FRONTEND: "noninteractive"
+workspaceFolder: "/workspace"
+features:
+  ghcr.io/devcontainers-contrib/features/apt-packages:1:
+    packages: "make file lsb-release cmake git gcc-multilib wget xz-utils ruby github-cli"
+customizations:
+  vscode:
+    extensions:
+      - "ms-vscode.cmake-tools"
+      - "github.vscode-github-actions"
+      - "dbaeumer.vscode-eslint"
+      - "eamodio.gitlens"
+      - "mhutchie.git-graph"
+      - "ms-vscode.cpptools"
+      - "ms-python.python"
+      - "ms-python.vscode-pylance"
+postCreateCommand: "uv sync"

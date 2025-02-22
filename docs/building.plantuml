@@ -1,0 +1,42 @@
+@startuml
+' Styling
+skinparam activity {
+  BackgroundColor White
+  BorderColor Black
+  FontName Arial
+  FontSize 12
+}
+
+skinparam condition {
+  BackgroundColor White
+  BorderColor Black
+  FontName Arial
+  FontSize 12
+}
+
+skinparam note {
+  BackgroundColor LightYellow
+  BorderColor Black
+  FontName Arial
+  FontSize 11
+}
+
+' Start
+start
+
+:Create Devcontainer Files (docker-compose.yml, Dockerfile);
+if () then ([File Creation Failed])
+  :Log Error: Devcontainer File Creation Failed;
+  stop
+else ([Files Created])
+  :Build and Start Devcontainer (docker-compose up -d);
+  if () then ([Devcontainer Start Failed])
+    :Log Error: Devcontainer Start Failed;
+    stop
+  else ([Devcontainer Started])
+  endif
+endif
+
+stop
+
+@enduml

@@ -1,0 +1,13 @@
+{
+  "remote_host": "user@remote-host.example.com",
+  "docker_image": "example-image:latest",
+  "remote_dir": "/home/user/example-project",
+  "port_mappings": [
+    "1234:1234",
+    "5678:5678"
+  ],
+  "devcontainer_template": "./templates/devcontainer-template.txt.example",
+  "dockerfile_template": "./templates/dockerfile-template.txt.example",
+  "docker_compose_template": "./templates/docker-compose-template.txt.example",
+  "dockerignore_template": "./templates/dockerignore-template.txt.example"
+}
