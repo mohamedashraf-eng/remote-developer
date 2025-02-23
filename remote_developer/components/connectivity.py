@@ -6,20 +6,45 @@ logger = Logger(__name__, level=get_level_from_env())
 
 
 async def execute_remote_command(ssh_client, command):
-    """Executes a command on the remote server using the SSH client."""
+    """Executes a command on the remote host."""
+    if (
+        not ssh_client
+        or not ssh_client.get_transport()
+        or not ssh_client.get_transport().is_active()
+    ):
+        logger.error("SSH connection is not active")
+        return None
+
     try:
         logger.debug(f"Executing remote command: {command}")
         stdin, stdout, stderr = ssh_client.exec_command(command)
-        output = stdout.read().decode("utf-8")
-        error = stderr.read().decode("utf-8")
-        if output:
-            logger.debug(f"Command output: {output.strip()}")
-        if error:
-            logger.error(f"Command error: {error.strip()}")
+        output = stdout.read().decode().strip()
+        error = stderr.read().decode().strip()
+
         return output, error
     except Exception as e:
         logger.error(f"Error executing command: {e}")
         return None, str(e)
+
+
+async def execute_interactive_command(ssh_client, command):
+    """Executes a command with interactive PTY session."""
+    if (
+        not ssh_client
+        or not ssh_client.get_transport()
+        or not ssh_client.get_transport().is_active()
+    ):
+        logger.error("SSH connection is not active")
+        return None
+
+    try:
+        channel = ssh_client.get_transport().open_session()
+        channel.get_pty()
+        channel.exec_command(command)
+        return channel
+    except Exception as e:
+        logger.error(f"Error executing interactive command: {e}")
+        return None
 
 
 async def ensure_remote_directory(config, ssh_client):

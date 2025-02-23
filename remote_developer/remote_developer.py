@@ -66,28 +66,30 @@ async def setup_and_connect(ctx):
 
 
 async def run_rdc_command(ctx, ssh_client, command):
-    """Runs a command in the devcontainer."""
+    """Runs a command in the remote devcontainer."""
     try:
         await execution.run_command_in_devcontainer(ctx.obj["config"], ssh_client, command)
     except Exception as e:
         logger.error(f"An error occurred while running the command: {e}")
 
 
+async def open_shell(ctx, ssh_client):
+    """Opens a shell in the remote devcontainer."""
+    try:
+        await execution.execute_container_shell(ctx.obj["config"], ssh_client)
+    except Exception as e:
+        logger.error(f"An error occurred while starting the shell: {e}")
+
+
 async def interactive_shell(ctx, ssh_client):
     """Opens an interactive shell to the devcontainer."""
     logger.info("Entering interactive shell. Type 'exit' to quit.")
     try:
-        while True:
-            try:
-                command = input("[remote-dev]> ")
-                if command.lower() == "exit":
-                    break
-                await run_rdc_command(ctx, ssh_client, command.split())
-            except KeyboardInterrupt:
-                logger.debug("\nExiting interactive shell.")
-                break
-            except Exception as e:
-                logger.error(f"Error running command: {e}")
+        await open_shell(ctx, ssh_client)
+    except KeyboardInterrupt:
+        logger.debug("\nExiting interactive shell.")
+    except Exception as e:
+        logger.error(f"Error running interactive shell: {e}")
     finally:
         try:
             await security.close_ssh_connection(ssh_client, ctx.obj["config"]["remote_host"])
