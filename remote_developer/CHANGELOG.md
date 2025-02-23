@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.3.0](https://github.com/mohamedashraf-eng/remote-developer/compare/remote_developer/v0.2.0...remote_developer/v0.3.0) (2025-02-23)
+
+
+### Features
+
+* added open interactive shell ([b8c6a0c](https://github.com/mohamedashraf-eng/remote-developer/commit/b8c6a0c9c0866bdfff7353e4ac12cfa83f4402e7))
+* added open interactive shell ([bfdb766](https://github.com/mohamedashraf-eng/remote-developer/commit/bfdb766900d841743be7ecb7580314f53718384a))
+
+
+### Bug Fixes
+
+* fixed ssh stable connection error ([6fe8cbd](https://github.com/mohamedashraf-eng/remote-developer/commit/6fe8cbdf67e174ff1d2e8af42a5f20be459fa601))
+
 ## [0.2.0](https://github.com/mohamedashraf-eng/remote-developer/compare/remote_developer-v0.1.0...remote_developer/v0.2.0) (2025-02-22)
 
 
