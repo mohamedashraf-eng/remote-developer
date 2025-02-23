@@ -13,7 +13,7 @@ async def execute_remote_command(ssh_client, command):
         or not ssh_client.get_transport().is_active()
     ):
         logger.error("SSH connection is not active")
-        return None, "SSH connection is not active"
+        return None
 
     try:
         logger.debug(f"Executing remote command: {command}")
